@@ -1,0 +1,58 @@
+
+ADD TWO SUM (leedcode Solution)
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode*first=nullptr;
+        ListNode*currentnode=nullptr;
+        int carry=0;
+        while(l1!=nullptr&&l2!=nullptr) {
+            int sum=l1->val+l2->val+carry;
+            int digit=sum%10;
+            carry=sum/10;
+            ListNode*value=new ListNode(digit);
+            if(first==nullptr) {
+                first=value;
+            }
+            if (currentnode==nullptr) {
+                currentnode=value;
+            } else {
+                currentnode->next=value;
+                  currentnode=value;
+            }
+            l1=l1->next;
+            l2=l2->next;
+        }
+        
+        ListNode*remaining=(l1==nullptr)?l2:l1;
+        while(remaining!=nullptr) {
+            int sum=remaining->val+carry;
+            int digit=sum%10;
+            carry=sum/10;
+              ListNode*value=new ListNode(digit);
+               currentnode->next=value;
+                  currentnode=value;
+                  remaining=remaining->next;
+
+        }
+        if(carry!=0) {
+ListNode*value=new ListNode(carry);
+               currentnode->next=value;
+                  currentnode=value;
+
+        }
+return first;
+    }
+};
